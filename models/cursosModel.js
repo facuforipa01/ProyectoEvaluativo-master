@@ -24,4 +24,8 @@ exports.deleteCursoById = async (id) =>{
     const [rows, fields] = await db.execute('DELETE FROM cursos WHERE id = ?', [id]);
     return rows
 } 
-
+exports.getEstudiantesDelCurso = async (id) => {
+    const [rows, fields] = await db.execute('SELECT estudiantes.nombre FROM estudiantes_cursos INNER JOIN estudiantes ON estudiantes_cursos.id_estudiante = estudiantes.id INNER JOIN cursos ON estudiantes_cursos.id_curso = cursos.id AND cursos.id = ?', [id]);
+    console.log(rows)
+    return rows;
+}

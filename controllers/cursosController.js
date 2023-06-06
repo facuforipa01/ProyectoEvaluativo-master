@@ -129,3 +129,30 @@ exports.updateCurso = async (req, res) => {
             })
         }
     } 
+    exports.getEstudiantesDelCurso = async (req, res) => {
+        const idCursos = req.params.id;
+        try {
+            const cursos = await cursosModel.getEstudiantesDelCurso(idCursos)
+    
+            if (cursos.length < 1) {
+                res.status(404).json({
+                    success: false,
+                    msg: `nO EXISTE: ${idCursos}`
+                })
+    
+            }
+            res.status(200).json({
+                success: true,
+               cursos
+    
+            })
+        }
+    
+        catch (error) {
+            console.error(error);
+            res.status(500).json({
+                success: false,
+                message: 'Hubo un error al obtener los datos de los Profesores'
+            })
+        }
+    }
