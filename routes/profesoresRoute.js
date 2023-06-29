@@ -14,7 +14,7 @@ router.get('/:id', profesoresController.getProfesoresById)
 router.put('/:id', [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('especialidad', "La edad es obligatoria").not().isEmpty(),
-    check('email', 'El grado es obligatorio').not().isEmpty(),
+    check('email', 'El email es invalido').isEmail(),
     validarCampos
     ]
     ,
@@ -24,7 +24,7 @@ router.post('/',
     [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
     check('especialidad', "La edad es obligatoria").not().isEmpty(),
-    check('email', 'El grado es obligatorio').not().isEmpty(),
+    check('email', 'El email es invalido').isEmail(),
     validarCampos
     ]
     ,
