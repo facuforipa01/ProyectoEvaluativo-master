@@ -188,3 +188,34 @@ exports.updateCurso = async (req, res) => {
             }
         }
     
+        exports.deleteEstudianteAUnCurso = async (req, res) => {
+            const id = req.params.id;
+            const cursoActualizado = req.body;
+        
+            const curso = {
+                id,
+                ...cursoActualizado  //muestra todo lo que necesitamos de forma mas breve
+            }
+            console.log(curso)
+            try {
+                const listaActualizada = await cursosModel.deleteEstudianteAUnCurso(curso)
+                if (listaActualizada < 1) {
+                    res.status(404).json({
+                        success: false,
+                        message: "datos no actualizados"
+                    })
+                 }
+                res.status(200).json({
+                    success: true,
+                    message: "datos actualizados",
+                curso
+                })
+             }
+             catch(error) {
+                res.status(500).json({
+                    success: false,
+                    message: "No anda"
+                })
+                }
+            }
+        

@@ -33,3 +33,8 @@ exports.addEstudianteAUnCurso = async (estudiante) => {
     const [rows, fields] = await db.execute('INSERT INTO `estudiantes_cursos` VALUE ( ?, ? )', [estudiante.estudiante_id, estudiante.id]);
     return rows;
 }
+exports.deleteEstudianteAUnCurso = async (estudiante) => {
+    const [rows, fields] = await db.execute('DELETE FROM `estudiantes_cursos` WHERE `estudiantes_cursos`.`id_estudiante` = ? AND `estudiantes_cursos`.`id_curso` = ?', [estudiante.estudiante_id, estudiante.id]);
+    return rows;
+}
+

@@ -19,6 +19,7 @@ router.put('/:id', [
 router.delete('/:id',cursosController.deleteCursoById);
 router.get('/:id/estudiantes',cursosController.getEstudiantesDelCurso)
 router.post('/:id/estudiantes', cursosController.addEstudianteAUnCurso);
+router.delete('/:id/estudiantes', cursosController.deleteEstudianteAUnCurso);
 router.post('/',
     [
     check('nombre', 'El nombre es obligatorio').not().isEmpty(),
