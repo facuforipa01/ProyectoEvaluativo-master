@@ -1,17 +1,17 @@
-const profesoresModel = require('./../models/profesoresModel') // traemos todo lo que tiene dentro 
+const UsuariosModel = require('../models/usuariosModel') // traemos todo lo que tiene dentro 
 
-exports.getProfesores = async (req, res) => {
+exports.getUsuarios = async (req, res) => {
     //evaluamos el bloque dentro del try
     try {
         //obtenemos los datos desde el modelo
-        const profesores = await profesoresModel.obtenerProfesores();
+        const Usuarios = await UsuariosModel.obtenerUsuarios();
 
         //si todo va bien respondemos con los usuarios, del lado del cliente
         //lo obtenemos con json
         //status 200 que todo fue ok
         res.status(200).json({
             success: true,
-            data: profesores
+            data: Usuarios
         })
 
     } catch (error) {
@@ -25,21 +25,21 @@ exports.getProfesores = async (req, res) => {
         })
     }
 }
-exports.getProfesoresById = async (req, res) => {
-    const idProfesor = req.params.id;
+exports.getUsuariosById = async (req, res) => {
+    const idUsuario = req.params.id;
     try {
-        const profesores = await profesoresModel.getProfesoresById(idProfesor)
+        const Usuarios = await UsuariosModel.getUsuariosById(idUsuario)
 
-        if (profesores.length < 1) {
+        if (Usuarios.length < 1) {
             res.status(404).json({
                 success: false,
-                msg: `nO EXISTE: ${idProfesor}`
+                msg: `nO EXISTE: ${idUsuario}`
             })
 
         }
         res.status(200).json({
             success: true,
-            profesores
+            Usuarios
 
         })
     }
@@ -48,20 +48,20 @@ exports.getProfesoresById = async (req, res) => {
         console.error(error);
         res.status(500).json({
             success: false,
-            message: 'Hubo un error al obtener los datos de los Profesores'
+            message: 'Hubo un error al obtener los datos de los Usuarios'
         })
     }
 }
 
 
-exports.addProfesor = async (req, res) => {
-    const nuevoprofesor = req.body;
+exports.addUsuario = async (req, res) => {
+    const nuevoUsuario = req.body;
     try {
-        const id = await profesoresModel.addProfesor(nuevoprofesor)
+        const id = await UsuariosModel.addUsuario(nuevoUsuario)
         res.status(201).json({
             success: true,
             message: "ANDUVO",
-            nuevoprofesor
+            nuevoUsuario
         })
     }
     catch (error) {
@@ -74,17 +74,17 @@ exports.addProfesor = async (req, res) => {
 }
 
 
-exports.updateProfesor = async (req, res) => {
+exports.updateUsuario = async (req, res) => {
     const id = req.params.id;
-    const profesorActualizado = req.body;
+    const UsuarioActualizado = req.body;
 
-    const profesor = {
+    const Usuario = {
         id,
-        ...profesorActualizado  //muestra todo lo que necesitamos de forma mas breve
+        ...UsuarioActualizado  //muestra todo lo que necesitamos de forma mas breve
     }
-    console.log(profesor)
+    console.log(Usuario)
     try {
-        const listaActualizada = await profesoresModel.updateProfesor(profesor)
+        const listaActualizada = await UsuariosModel.updateUsuario(Usuario)
         if (listaActualizada < 1) {
             res.status(404).json({
                 success: false,
@@ -94,7 +94,7 @@ exports.updateProfesor = async (req, res) => {
         res.status(200).json({
             success: true,
             message: "lista actualizada",
-            profesor
+            Usuario
         })
     }
     catch (error) {
@@ -104,16 +104,16 @@ exports.updateProfesor = async (req, res) => {
         })
     }
 }
-exports.deleteProfesorById = async (req, res) => {
+exports.deleteUsuarioById = async (req, res) => {
 
-    const idProfesor = req.params.id;
+    const idUsuario = req.params.id;
     try {
-        const profesor = await profesoresModel.deleteProfesorById(idProfesor)
+        const Usuario = await UsuariosModel.deleteUsuarioById(idUsuario)
 
-        if (profesor.length < 1) { //pregunto si existe el usuario
+        if (Usuario.length < 1) { //pregunto si existe el usuario
             res.status(404).json({
                 success: false,
-                mgs: `No existe usuario con el id: ${idProfesor}`
+                mgs: `No existe usuario con el id: ${idUsuario}`
             })
         }
         //si todo va bien y existe el usuario =D
